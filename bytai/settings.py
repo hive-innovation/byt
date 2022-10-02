@@ -131,6 +131,7 @@ MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 SCRIPTS_URL = 'scripts/'
 SCRIPTS_ROOT = os.path.join(BASE_DIR, "scripts")
+AUTH_USER_MODEL = 'homepage.Profile'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field 
@@ -143,15 +144,15 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES':[
-        #'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTStatelessUserAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication'
     ]
 }
-#JWT_AUTH = {
+JWT_AUTH = {
     #allowed token validity
-    #'JWT_EXPIRATION_DELTA':datetime.timedelta(days=3),
+    'JWT_EXPIRATION_DELTA':datetime.timedelta(days=3),
     #allow refreshing token
-    #'JWT_ALLOW_REFRESH': True
-#}
+    'JWT_ALLOW_REFRESH': True
+}
 
