@@ -1,7 +1,7 @@
 from django.db import models
 
 # creating a database for scripts(books), course
-class library(models.Model):
+class bookshelf(models.Model):
     book_id = models.AutoField(primary_key=True)
     book_title = models.CharField(max_length=288, null = False)
     book_description= models.CharField(max_length= 1000, null=True )

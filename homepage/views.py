@@ -8,6 +8,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework import status
+import jwt, datetime
 
 
 # handling login and signup plus homepage rendering
@@ -40,18 +41,27 @@ def login(request):
         password = request.data.get('password')
         email = request.data.get('email')
         user = Profile.objects.filter(email=email).first()
-        userpass = Profile.objects.filter(password=password)
         if user is None:
                 raise AuthenticationFailed('email wrong')
         if not user.check_password(password):
             raise AuthenticationFailed('wrong password')
-
+        # generates a token for a user once credentials are verified. with an creation time(iat) and an expiration time (exp)
+        payload = {
+            'id' : user.id,
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+            'iat': datetime.datetime.utcnow()
+        }
+        #this is built simply just for beta version. will be  updated with OAuth2.0 
+        token = jwt.encode(payload,key='secret',algorithm="HS256").decode('utf-8')
+        response = Response()
+        response.set_cookie(key='jwt', value=token,httponly=True )
         return HttpResponse( 'home'+ password)
-        #{"username":"sdfghj","first_name":"wertyui","last_name":"xcvbnm","email":"fghjhgf@rtt.com","password":"abcdefg"}
-        #pbkdf2_sha256$390000$wU0ci8r1V1sZqTw06f6Du1$1fwh2rTZX7D+qYW1ouQZ2BSKv8pWzCLmI6T596lIpWs=
-       # pbkdf2_sha256$390000$GVn4685Q8VzJ99UUfUrHg8$j96YdEs7qYXblmYuOvDGnul2y8BoV2m+JDRBv6wDdR4= 
+@api_view(['POST'])
 def logout(request):
-    pass
+    response = Response()
+    response.delete_cookie('jwt')
+    return HttpResponse('logout')
+
 @api_view(['PUT','DELETE'])
 def update_account(request):
     pass
