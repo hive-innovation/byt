@@ -16,3 +16,12 @@ class courses(bookshelf):
     course_context = models.FileField(upload_to = "scripts")
     def __str__(self):
         return self.course_title
+class todo(models.Model):
+    todo_id = models.AutoField(primary_key=True)
+    task_description = models.TextField()
+    date_created = models.DateTimeField()
+    due_date = models.DateTimeField
+    task_status=models.BooleanField()
+    def __str__(self):
+        return self.task_description
+        
