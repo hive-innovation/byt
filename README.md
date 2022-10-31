@@ -1,1 +1,1 @@
-# byt
+# byt is an ai powered e-learning platform  which enables users to access customizable intime world class education. The algorithms behind byt hive are human-like sentient ai algorithms built under thorough supervision in regards to ai ethics and safety (https://www.selfbyt.com/ethics-and-safety) which will be available on selbyt's wwebsite for all to contribute.

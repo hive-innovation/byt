@@ -31,9 +31,6 @@ def signup(request):
             if serializer.is_valid():
                 serializer.save()
             return Response( "success", status= status.HTTP_201_CREATED)
-
-
-        return HttpResponse('login')
 @api_view(['POST'])
 def login(request):
      if request.method == 'POST':
@@ -55,12 +52,12 @@ def login(request):
         token = jwt.encode(payload,key='secret',algorithm="HS256").decode('utf-8')
         response = Response()
         response.set_cookie(key='jwt', value=token,httponly=True )
-        return HttpResponse( 'home'+ password)
+        return Response( "ok", status= status.HTTP_200_OK)
 @api_view(['POST'])
 def logout(request):
     response = Response()
     response.delete_cookie('jwt')
-    return HttpResponse('logout')
+    return Response( "ok", status= status.HTTP_200_OK)
 
 @api_view(['PUT','DELETE'])
 def update_account(request):

@@ -18,6 +18,9 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),
     path('api/v1.0/user/', include('homepage.urls')),
-     path('api/v1.0/locker/', include('locker.urls')),
+    path('api/v1.0/locker/', include('locker.urls')),
+    path('api/v1.0/query/', include('queries.urls')),
+    path('api/v1.0/post/', include('forum.urls')),
 ]
