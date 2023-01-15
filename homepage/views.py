@@ -8,7 +8,10 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework import status
-import jwt, datetime
+import jwt, datetime, utils 
+from rest_framework_simplejwt.tokens import RefreshToken
+from  django.core.mail import *
+from django.template.loader import render_to_string
 
 
 # handling login and signup plus homepage rendering
@@ -30,6 +33,15 @@ def signup(request):
         else:
             if serializer.is_valid():
                 serializer.save()
+                # htmly = get_template('user/Email.html')
+                d = { 'username': username }
+                subject, from_email, to = 'verify', 'fmbishu@gmail.com', email
+                html_content =render_to_string('user/Email.html', d)
+                msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
+                msg.attach_alternative(html_content, "text/html")
+                msg.send()
+                ##################################################################
+                messages.success(request, f'Your account has been created ! You are now able to log in')
             return Response( "success", status= status.HTTP_201_CREATED)
 @api_view(['POST'])
 def login(request):
