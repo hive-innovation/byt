@@ -9,18 +9,23 @@ from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework import status
 import jwt, datetime, utils 
-from rest_framework_simplejwt.tokens import RefreshToken
 from  django.core.mail import *
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnicodeDecodeError
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.template.loader import render_to_string
 
 
 # handling login and signup plus homepage rendering
 def home(request):
     pass
-    return HttpResponse('home')
+    return HttpResponse('home.html')
 @api_view(['POST'])
 def signup(request):
     if request.method == 'POST':
+        #collect user data into a serializer
         serializer = ProfileSerializer(data = request.data)
         email = request.data.get('email')
         username = request.data.get('username')
@@ -34,6 +39,7 @@ def signup(request):
             if serializer.is_valid():
                 serializer.save()
                 # htmly = get_template('user/Email.html')
+                #creating an email template to send to a user after registration.
                 d = { 'username': username }
                 subject, from_email, to = 'verify', 'fmbishu@gmail.com', email
                 html_content =render_to_string('user/Email.html', d)
@@ -43,6 +49,9 @@ def signup(request):
                 ##################################################################
                 messages.success(request, f'Your account has been created ! You are now able to log in')
             return Response( "success", status= status.HTTP_201_CREATED)
+@api_view(['POST'])
+def verify_email(request):
+    pass
 @api_view(['POST'])
 def login(request):
      if request.method == 'POST':
