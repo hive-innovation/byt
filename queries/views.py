@@ -14,23 +14,15 @@ import json
 from .serializers import SearchSerializer
 from django.db.models import Q
 
-#search algorithm for searching courses
 @api_view(['POST'])
 def search(request):
     if request.method == "POST":
-        serializer = SearchSerializer(data = request.data)
+        serializer = SearchSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-        data = request.data.get('search_query')
-        multi_search = Q(Q(course_title_icontains=data) | Q(course_description_icontains=data) )
-        search_result = courses.objects.filter(multi_search)
-        result ={
-            'data': search_result
-        }
-    return render(result)
-"""def for_you(request):
-    pass
-    return render(request)
-def popular(request):
-    pass"""
-
+            data = request.data.get('search_query')
+            multi_search = Q(Q(course_title__icontains=data) | Q(course_description__icontains=data))
+            search_result = courses.objects.filter(multi_search)
+            serialized_result = SearchSerializer(search_result, many=True)
+            return Response(serialized_result.data, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
