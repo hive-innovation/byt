@@ -1,6 +1,6 @@
 from distutils.command.upload import upload
 from django.db import models
-
+import  datetime
 # creating a database for scripts(books), course
 class bookshelf(models.Model):
     book_id = models.AutoField(primary_key=True)
@@ -19,8 +19,8 @@ class courses(bookshelf):
 class todo(models.Model):
     todo_id = models.AutoField(primary_key=True)
     task_description = models.TextField()
-    date_created = models.DateTimeField()
-    due_date = models.DateTimeField
+    date_created = models.DateTimeField(default = datetime.datetime.now())
+    due_date = models.DateTimeField()
     task_status=models.BooleanField()
     def __str__(self):
         return self.task_description
