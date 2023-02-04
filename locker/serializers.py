@@ -4,15 +4,15 @@ from django.contrib.auth.hashers import make_password
 from rest_framework import serializers
 from .models import  bookshelf, courses, todo
  #creating a serializer for recieving course content
-class BookshelfSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = bookshelf
-        fields = [
-            'book_id',
-            'book_title',
-            'book_description',
-            'book_doc'
-            ]
+# class BookshelfSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = bookshelf
+#         fields = [
+#             'book_id',
+#             'book_title',
+#             'book_description',
+#             'book_doc'
+#             ]
  #creating a serializer for recieving course content
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:

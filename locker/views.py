@@ -8,15 +8,15 @@ from rest_framework.decorators import api_view, parser_classes
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
-@api_view(['POST','GET'])
-def bookshelfview(request):
-    if request.method == 'POST':
-        serializer = BookshelfSerializer(data = request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response( "success", status= status.HTTP_201_CREATED)
-    if request.method == 'GET':
-        pass
+# @api_view(['POST','GET'])
+# def bookshelfview(request):
+#     if request.method == 'POST':
+#         serializer = BookshelfSerializer(data = request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response( "success", status= status.HTTP_201_CREATED)
+#     if request.method == 'GET':
+#         pass
 @api_view(['POST', 'GET', 'DELETE'])
 @parser_classes(['FileUploadParser'])
 def Courseview(request, filename, format = None):
