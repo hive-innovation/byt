@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class SelbytWebConfig(AppConfig):
+class SelfbytWebConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'selbyt_web'
+    name = 'selfbyt_web'

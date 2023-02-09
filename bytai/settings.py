@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'locker',
     'forum',
     'queries',
+    'selfbyt_web',
 ]
 
 MIDDLEWARE = [
