@@ -6,7 +6,7 @@ urlpatterns=[
     path('login', views.login, name = 'login'),
     path('logout', views.login, name = 'logout'),
     path('password_reset', views.send_password_reset_email, name = 'send_password_reset_email'),
-    re_path(r'^set_new_password/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.set_new_password, name = 'set_new_password'),
+    path('set_new_password/', views.set_new_password, name = 'set_new_password'),
     # path('update_account/<int:id>', views.update_account, name = 'update_account'),
-    re_path(r'^verify_email/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.verify_email, name='verify_email')
+    path('verify_email/', views.verify_email, name='verify_email')
 ]

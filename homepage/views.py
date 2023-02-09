@@ -65,7 +65,9 @@ def signup(request):
                 return Response(serializer.errors, status=400)
 @api_view(['POST'])
 def verify_email(request):
-    serializer = VerifySerializer(data=request.data)
+    token = request.GET.get('token')
+    data = {'token': token}
+    serializer = VerifySerializer(data=data)
     if serializer.is_valid():
         profile = Profile.objects.get(user=request.user)
         profile.email_confirmed = True

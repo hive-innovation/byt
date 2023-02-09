@@ -12,7 +12,7 @@
         {{message}}
       </h5>
       {%endfor%} 
-    <div>
+    </div>
     <form action="" method="post">
       {%csrf_token%}
       <label for="email">email:</label>
@@ -23,5 +23,9 @@
       <br><br>
       <input type="submit" value="signin">
     </form>
+    <div>
+      <h2> Don't have an account?</h2><span><a href="http://127.0.0.1:8000/signup"> signup</a>
+      <h2>Forgot Password?</h2><span><a href="http://127.0.0.1:8000/forgot_password">Forgot Password </a>
+    </div>
   </body>
 </html>

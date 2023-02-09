@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Verify your Email Address</title>
+</head>
+<body>
+    <p>Hi {{user.username}},</p>
+    <p>Thank you for registering on {{domain}}. Please verify your email address by clicking the link below:</p>
+    <p><a href="http://127.0.0.1:8000/api/v1.0/user/verify_email?uidb64={{uid}}&token={{token}}">Verify Email Address</a></p>
+    <p>If you did not request this email, please ignore it.</p>
+</body>
+</html>

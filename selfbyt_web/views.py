@@ -32,11 +32,11 @@ def contact(request):
     return render(request, 'contact.html')
 def about(request):
     return render(request, 'about.html')
-def register(request):
+def signup(request):
     if request.method == 'POST':
-        serializer = ProfileSerializer(data=request.data)
-        email = request.data.get('email')
-        username = request.data.get('username')
+        serializer = ProfileSerializer(data=request.POST)
+        email = request.POST['email']
+        username = request.POST['username']
         if Profile.objects.filter(email=email).exists():
             messages.info(request, "Email already registered")
         elif Profile.objects.filter(username=username).exists():
@@ -57,8 +57,8 @@ def register(request):
                 )
                 email.attach_alternative(message, "text/html")
                 email.send()
-                messages.success(request, 'Please confirm your email address to complete the registration.')
-                return redirect(request, 'login.html')
+                messages.info(request, 'Please confirm your email address to complete the registration.')
+                return redirect(request, 'user/login.html')
     return render(request, 'user/signup.html')
 def signin(request):
     if request.method == 'POST':
@@ -93,7 +93,8 @@ def forgot_password(request):
         try:
             user = Profile.objects.get(email=email)
         except Profile.DoesNotExist:
-            return Response({"error": "This email address is not registered with us."}, status=400)
+            messages.info(request,"enter a valid email")
+            return render(request, 'user/forgot_password.html')
         # current_site = get_current_site(request)
         # site_name = current_site.name
         # domain = current_site.domain
@@ -109,9 +110,30 @@ def forgot_password(request):
         subject = loader.render_to_string('user/reset_password_subject.txt', context)
         message = loader.render_to_string('user/reset_password_email.html', context)
         send_mail(subject, message, 'fmbishu@gmail.com', [email], fail_silently=False)
-    return render('user/')
-@api_view(['POST'])
-def opensource(request):
+        messages.info(request, 'An email has been sent to your email address.')
+        return render(request, 'user/forgot_password.html')
+    return render(request, 'user/forgot_password.html')
+def set_password(request):
+    serializer = SetNewPasswordSerializer(data=request.POST)
+    if serializer.is_valid():
+        password = serializer.validated_data['password']
+        token = serializer.validated_data['token']
+        uidb64 = serializer.validated_data['uidb64']
+        try:
+            uid = urlsafe_base64_decode(uidb64).decode()
+            user = Profile.objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, Profile.DoesNotExist):
+            user = None
+
+        if user is not None and default_token_generator.check_token(user, token):
+            user.set_password(password)
+            user.save()
+            messages.info(request,"Password set successfully")
+            return render('user/login.html')
+        else:
+            messages.info(request,  "Invalid/Expired token")
+    return render(request, 'user/set_new_password.html')
+def opensource_page(request):
     return render(request, 'opensource.html')
-def research(request):
+def research_page(request):
     return render(request, 'research.html')
