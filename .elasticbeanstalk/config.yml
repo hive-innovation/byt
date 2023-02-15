@@ -1,26 +1,19 @@
 branch-defaults:
-  main:
+  master:
     environment: Selfbyt-env
+environment-defaults:
+  Selfbyt-env:
+    branch: null
+    repository: null
 global:
   application_name: selfbyt
-  default_ec2_keyname: 
-  default_platform: 64bit Amazon Linux 2
+  default_ec2_keyname: null
+  default_platform: Python 3.8 running on 64bit Amazon Linux 2
   default_region: us-east-1
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
   profile: eb-cli
   sc: git
   workspace_type: Application
-environments:
-  production:
-    branch: master
-    environment_name: 
-    solution_stack_name: "64bit Amazon Linux 2 v5.4.10 running Python 3.8"
-    option_settings:
-      aws:elasticbeanstalk:environment:proxy:staticfiles:
-        /assets: static/assets
-        /media: static/media
-      aws:elasticbeanstalk:container:python:python_version: 3.8
-      aws:elasticbeanstalk:container:python:wsgi: application.py
-      aws:elasticbeanstalk:container:python:staticfiles: /static: static/
-    env:
-      PARAM1: value1
-      PARAM2: value2
