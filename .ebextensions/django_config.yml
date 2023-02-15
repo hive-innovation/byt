@@ -1,0 +1,25 @@
+option_settings:
+  aws:elasticbeanstalk:container:python:
+    WSGIPath: bytai/wsgi.py
+  aws:elasticbeanstalk:container:python:staticfiles:
+    /static/: static/
+  aws:elasticbeanstalk:container:python:staticfiles:
+    /media/: media/
+  aws:elasticbeanstalk:application:environment:
+    DJANGO_SETTINGS_MODULE: bytai.settings
+    PYTHONPATH: /opt/python/current/app/bytai:$PYTHONPATH
+    SECRET_KEY: 7/?OVwkBhqYPvcFLJ$>fBI"SNu>^hUQA.B`s[JL6Hs^";RA)"8
+#  selfbyt.us-east-1.elasticbeanstalk.com
+container_commands:
+  01_makemigrations:
+    command: "source /var/app/venv/*/bin/activate && python3 manage.py makemigrations --noinput"
+    leader_only: true
+  02_migrate:
+    command: "source /var/app/venv/*/bin/activate && python3 manage.py migrate --noinput"
+    leader_only: true
+  03_superuser:
+    command: "source /var/app/venv/*/bin/activate && python3 manage.py createsu"
+    leader_only: true
+  04_collectstatic:
+    command: "source /var/app/venv/*/bin/activate && python3 manage.py collectstatic --noinput"
+    leader_only: true

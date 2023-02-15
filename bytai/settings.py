@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-ova5eim%biuf%8*o-6qs9iaagb6va8a@%!6wfubr9*etii79yo
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["selfbyt.us-east-1.elasticbeanstalk.com", "127.0.0.1"]
 
 
 # Application definition
@@ -100,17 +100,34 @@ AUTHENTICATION_BACKENDS = [
     ]
 
 WSGI_APPLICATION = 'bytai.wsgi.application'
-
+import os
+environment = os.environ.get('ENVIRONMENT')
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if 'RDS_DB_NAME' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'selfbyts',
+            'USER': 'postgres',
+            'PASSWORD': 'bItO2002',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
 PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
