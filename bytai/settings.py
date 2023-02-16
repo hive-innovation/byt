@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-ova5eim%biuf%8*o-6qs9iaagb6va8a@%!6wfubr9*etii79yo
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["selfbyt-env.eba-ieqzarjm.us-east-1.elasticbeanstalk.com", "127.0.0.1"]
+ALLOWED_HOSTS = ["selfbyt.us-east-1.elasticbeanstalk.com", "127.0.0.1"]
 
 
 # Application definition
@@ -101,7 +101,6 @@ AUTHENTICATION_BACKENDS = [
 
 WSGI_APPLICATION = 'bytai.wsgi.application'
 import os
-environment = os.environ.get('ENVIRONMENT')
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases

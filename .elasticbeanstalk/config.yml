@@ -1,13 +1,11 @@
 branch-defaults:
   master:
-    environment: Selfbyt-env
-environment-defaults:
-  Selfbyt-env:
-    branch: null
-    repository: null
+    environment: selfbyt-dev
+    group_suffix: null
 global:
-  application_name: selfbyt
-  default_ec2_keyname: null
+  application_name: byt
+  branch: null
+  default_ec2_keyname: mbishu
   default_platform: Python 3.8 running on 64bit Amazon Linux 2
   default_region: us-east-1
   include_git_submodules: true
@@ -15,5 +13,6 @@ global:
   platform_name: null
   platform_version: null
   profile: eb-cli
+  repository: null
   sc: git
   workspace_type: Application
