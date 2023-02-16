@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-ova5eim%biuf%8*o-6qs9iaagb6va8a@%!6wfubr9*etii79yo
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["selfbyt.us-east-1.elasticbeanstalk.com", "127.0.0.1"]
+ALLOWED_HOSTS = ["selfbyt.us-east-1.elasticbeanstalk.com"]
 
 
 # Application definition
@@ -120,7 +120,7 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'selfbyts',
+            'NAME': 'selfbyt',
             'USER': 'postgres',
             'PASSWORD': 'bItO2002',
             'HOST': 'localhost',
