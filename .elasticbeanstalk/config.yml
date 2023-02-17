@@ -6,7 +6,7 @@ global:
   application_name: byt
   branch: null
   default_ec2_keyname: mbishu
-  default_platform: Python 3.8 running on 64bit Amazon Linux 2
+  default_platform: Python 3.10 running on 64bit Amazon Linux 2
   default_region: us-east-1
   include_git_submodules: true
   instance_profile: null

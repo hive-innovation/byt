@@ -1,6 +1,6 @@
 option_settings:
   aws:elasticbeanstalk:container:python:
-    WSGIPath: bytai/wsgi.py
+    WSGIPath: "bytai.wsgi:application"
   aws:elasticbeanstalk:container:python:staticfiles:
     /static/: static/
   aws:elasticbeanstalk:container:python:staticfiles:

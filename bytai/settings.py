@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import os
 import imp
 from pathlib import Path
 import datetime
@@ -22,12 +22,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 #'7/?OVwkBhqYPvcFLJ$>fBI"SNu>^hUQA.B`s[JL6Hs^";RA)"8'
 # SECURITY WARNING: keep the secret key used in production secret!((
-SECRET_KEY = os.environ('SECRET_KEY', default='7/?OVwkBhqYPvcFLJ$>fBI"SNu>^hUQA.B`s[JL6Hs^";RA)"8')
+SECRET_KEY = os.environ.get('SECRET_KEY', '7/?OVwkBhqYPvcFLJ$>fBI"SNu>^hUQA.B`s[JL6Hs^";RA)"8')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["selfbyt.us-east-1.elasticbeanstalk.com"]
+ALLOWED_HOSTS = ["selfbyt.us-east-1.elasticbeanstalk.com","127.0.0.1"]
 
 
 # Application definition
