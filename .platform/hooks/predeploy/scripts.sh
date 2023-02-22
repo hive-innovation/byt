@@ -1,6 +1,6 @@
 #!bin/bash
 #activate virtual environment
-source pipenv shell
+source pipenv run
 #makemgration( make changes)
 python manage.py makemigrations
 

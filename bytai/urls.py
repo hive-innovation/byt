@@ -26,5 +26,4 @@ urlpatterns = [
     path('api/v1.0/locker/', include('locker.urls')),
     path('api/v1.0/query/', include('queries.urls')),
     path('api/v1.0/post/', include('forum.urls')),
-]
-urlpatterns = urlpatterns+static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
