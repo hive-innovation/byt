@@ -1,26 +1,78 @@
 <!DOCTYPE html>
 <html>
-  <!-- {%load static%} -->
   <head>
     <title>selfbyt</title>
-    <link rel="stylesheet" type="text/css" href="static/css/landing.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mina:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="test.css">
   </head>
   <body>
     <header>
-      <img src="static/assets/logo.svg" alt="Logo">
+      <img src="logo.svg" alt="Logo">
+      <nav>
+        <ul>
+          <li><a href="#">Research</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Impact &amp; Safety</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Community</a></li>
+        </ul>
+      </nav>
       <div>
         <button>Log In</button>
-        <button>Sign Up</button>
+        <button><a><b>Sign Up</b></a></button>
       </div>
     </header>
     
     <main>
-      <h1>Get Started Today</h1>
+      <h1 id="rollin">live</h1>
+      <script src="rollin.js"></script>
+      <h1>SMART</h1>
+      <p id="tagline">personalize your classroom. Anywhere, Anytime</p>
       <button>Get Started</button>
     </main>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     
     <footer>
-      &copy; 2023 selfbyt
+      <div class="social-media">
+        <ul>
+          <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+          <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+          <li><a href="#"><i class="fab fa-discord"></i></a></li>
+          <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <div class="footer-section">
+          <h3 class="footer-section-title">Featured</h3>
+          <ul style="margin-bottom: 2cm;">
+            <li><a href="#">Selfbyt</a></li>
+            <li><a href="#">Pricing</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3 class="footer-section-title">Blog</h3>
+          <ul style="margin-bottom: 2cm;">
+            <li><a href="#">Blog E</a></li>
+            <li><a href="#">Research</a></li>
+            <li><a href="#">Impact & Safety</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3 class="footer-section-title">Info</h3>
+          <ul style="margin-bottom: 2cm;">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Our Research</a></li>
+            <li><a href="#">Publications</a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <a href="#" id="tos">Privacy Policy &amp; TOS</a>
+        &copy; selfbyt 2023
+      </div> 
     </footer>
   </body>
 </html>
