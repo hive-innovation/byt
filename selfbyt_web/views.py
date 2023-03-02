@@ -82,7 +82,7 @@ def signin(request):
         response = Response()
         response.set_cookie(key='jwt', value=token,httponly=True )
         return redirect('home')
-    return render(request, 'user/login.html')
+    return render(request, 'html_files/login.html')
 def signout(request):
     response = Response()
     response.delete_cookie('jwt')
@@ -129,7 +129,7 @@ def set_password(request):
             user.set_password(password)
             user.save()
             messages.info(request,"Password set successfully")
-            return render('user/login.html')
+            return render('html_files/login.html')
         else:
             messages.info(request,  "Invalid/Expired token")
     return render(request, 'user/set_new_password.html')

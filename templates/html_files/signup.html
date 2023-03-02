@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load static %}
+	<title>Sign Up</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+	<header>
+		<img src="{% static 'images/logo.svg' %}" alt="Logo">
+	</header>
+	<div class="container">
+		<form onsubmit="return validateForm()">
+			<h2>Create an account</h2>
+			{% csrf_token %}
+			<div id="error">
+				{% for message in messages %}
+				<h5>{{ message }}</h5>
+				{% endfor %} 
+			</div>
+			<input type="text" id="name" name="name" required placeholder="username">
+			<input type="text" id="first name" name="first name" required placeholder="First Name">
+			<input type="text" id="last name" name="last name" required placeholder="Last Name">
+			<input type="email" id="email" name="email" required placeholder="email">
+			<input type="password" id="password" name="password" required placeholder="password">
+			<input type="password" id="confirm-password" name="confirm-password" required placeholder="confirm-password">
+			<div id="password-criteria"></div>
+			<div id="terms">
+				<label><input type="checkbox" id="terms-checkbox" name="terms-checkbox">By checking the box you accept selfbyt's <a href="#">Terms & Privacy Policy</a></label><br>
+			</div>
+			<input type="submit" value="Sign Up">
+			<h2>or</h2>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" /> 
+			<div class="social-login">
+				<ul>
+					<li><a href="#"><img src="{% static 'images/google1.svg' %}" alt="gLogo">Sign in with Google</a></li>
+					<li><a href="#"><img src="{% static 'images/facebook1.svg' %}" alt="fLogo">Sign in with Facebook</a></li>
+				</ul>
+			</div>
+			<div class="links">
+				<a href="#">Forgot password?</a>
+				<a href="#">Already have an account? Login here</a>
+			</div>
+		</form>
+		<div id="password-match-error"></div>
+	</div>
+	<footer>
+		<div class="copyright">
+			<a href="#" id="tos">Privacy Policy &amp; TOS</a>
+			&copy; selfbyt 2023
+		</div> 
+	</footer>
+	<script src="{% static 'javascript/signup.js' %}"></script>
+</body>
+</html>

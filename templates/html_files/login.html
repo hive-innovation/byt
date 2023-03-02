@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  {%load static%}
+	<title>Login</title>
+	<link rel="stylesheet" href="{% static 'css/login.css' %}">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+      <img src="{% static 'images/logo.svg' %}" alt="Logo">
+    </header>
+    
+    <div class="container">
+      <form action="" method="post">
+        {%csrf_token%}
+        <h1>Login</h1>
+        <div id="error">
+          {%for message in messages%}
+          <h5>
+            {{message}}
+          </h5>
+          {%endfor%} 
+        </div>
+        <input type="text" id="username" name="username" placeholder="email">
+        <input type="password" id="password" name="password" placeholder="Password:">
+        
+        <input type="submit" value="Log in">
+        <h2>or</h2>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+        <div class="social-login">
+          <ul>
+            <li><a href="#"><img src="{% static 'images/google1.svg' %}" alt="gLogo">Sign in with Google</a></li>
+            <li><a href="#"><img src="{% static 'images/facebook1.svg' %}" alt="fLogo">Sign in with Facebook</a></li>
+          </ul>
+        </div>
+        <div class="links">
+          <a href="#">Forgot password?</a>
+          <a href="#">Don't have an account?</a>
+        </div>
+      </form>
+    </div>
+    <footer>
+      <div class="copyright">
+        <a href="#" id="tos">Privacy Policy &amp; TOS</a>
+        &copy; selfbyt 2023
+      </div> 
+    </footer>
+  </body>
+  
+</html>
