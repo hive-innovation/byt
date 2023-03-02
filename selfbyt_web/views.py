@@ -25,13 +25,13 @@ from .models import blog, opensource, research
 
 # Create your views here.
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'html_files/home.html')
 def blog(request):
-    return render(request, 'blog.html')
+    return render(request, 'html_files/blog.html')
 def contact(request):
-    return render(request, 'contact.html')
+    return render(request, 'html_files/contact.html')
 def about(request):
-    return render(request, 'about.html')
+    return render(request, 'html_files/about.html')
 def signup(request):
     if request.method == 'POST':
         serializer = ProfileSerializer(data=request.POST)
@@ -45,7 +45,7 @@ def signup(request):
             if serializer.is_valid():
                 user = serializer.save()
                 subject = 'Activate Your Account'
-                message = render_to_string('user/verification_email.html', {
+                message = render_to_string('user_files/verification_email.html', {
                     'user': user,
                     'domain': 'fmbishu@gmail.com',
                     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
@@ -58,19 +58,19 @@ def signup(request):
                 email.attach_alternative(message, "text/html")
                 email.send()
                 messages.info(request, 'Please confirm your email address to complete the registration.')
-                return redirect(request, 'user/login.html')
-    return render(request, 'user/signup.html')
+                return redirect(request, 'html_files/login.html')
+    return render(request, 'html_files/signup.html')
 def signin(request):
     if request.method == 'POST':
         email = request.POST['email']
         user = Profile.objects.filter(email=email).first()
         if user is None:
             messages.info(request, 'Email not found')
-            return render(request, 'user/login.html')
+            return render(request, 'html_files/login.html')
         password = request.POST['password']
         if not user.check_password(password):
             messages.info(request, 'Wrong password')
-            return render(request, 'user/login.html')
+            return render(request, 'html_files/login.html')
         # generates a token for a user once credentials are verified. with a creation time(iat) and an expiration time (exp)
         payload = {
             'id' : user.id,
@@ -86,7 +86,7 @@ def signin(request):
 def signout(request):
     response = Response()
     response.delete_cookie('jwt')
-    return redirect(request, 'home.html')
+    return redirect(request, 'html_files/home.html')
 def forgot_password(request):
     if request.method == 'POST':
         email = request.POST['email']
@@ -94,7 +94,7 @@ def forgot_password(request):
             user = Profile.objects.get(email=email)
         except Profile.DoesNotExist:
             messages.info(request,"enter a valid email")
-            return render(request, 'user/forgot_password.html')
+            return render(request, 'user_files/forgot_password.html')
         # current_site = get_current_site(request)
         # site_name = current_site.name
         # domain = current_site.domain
@@ -107,12 +107,12 @@ def forgot_password(request):
             'token': token,
             'protocol': 'https' if request.is_secure() else 'http',
         }
-        subject = loader.render_to_string('user/reset_password_subject.txt', context)
-        message = loader.render_to_string('user/reset_password_email.html', context)
+        subject = loader.render_to_string('user_files/reset_password_subject.txt', context)
+        message = loader.render_to_string('user_files/reset_password_email.html', context)
         send_mail(subject, message, 'fmbishu@gmail.com', [email], fail_silently=False)
         messages.info(request, 'An email has been sent to your email address.')
-        return render(request, 'user/forgot_password.html')
-    return render(request, 'user/forgot_password.html')
+        return render(request, 'user_files/forgot_password.html')
+    return render(request, 'user_files/forgot_password.html')
 def set_password(request):
     serializer = SetNewPasswordSerializer(data=request.POST)
     if serializer.is_valid():
@@ -134,6 +134,6 @@ def set_password(request):
             messages.info(request,  "Invalid/Expired token")
     return render(request, 'user/set_new_password.html')
 def opensource_page(request):
-    return render(request, 'opensource.html')
+    return render(request, 'html_files/opensource.html')
 def research_page(request):
-    return render(request, 'research.html')
+    return render(request, 'html_files/research.html')
