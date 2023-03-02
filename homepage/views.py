@@ -31,7 +31,7 @@ def home(request):
     pass
     return HttpResponse('home.html')
 @api_view(['POST'])
-def signup(request):
+def register(request):
     if request.method == 'POST':
         serializer = ProfileSerializer(data=request.data)
         email = request.data.get('email')
