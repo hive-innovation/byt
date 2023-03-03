@@ -1,25 +1,26 @@
 option_settings:
-  aws:elasticbeanstalk:container:python:
-    WSGIPath: "bytai.wsgi:application"
-  aws:elasticbeanstalk:container:python:staticfiles:
-    /static/: static/
-  aws:elasticbeanstalk:container:python:staticfiles:
-    /media/: media/
-  aws:elasticbeanstalk:application:environment:
-    DJANGO_SETTINGS_MODULE: bytai.settings
-    PYTHONPATH: /opt/python/current/app/bytai:$PYTHONPATH
-    SECRET_KEY: 7/?OVwkBhqYPvcFLJ$>fBI"SNu>^hUQA.B`s[JL6Hs^";RA)"8
-#  selfbyt.us-east-1.elasticbeanstalk.com
-container_commands:
-  01_makemigrations:
+  aws:elasticbeanstalk:container:python: # Elastic Beanstalk container settings for Python environment
+    WSGIPath: "bytai.wsgi:application" # WSGI application file path for Django
+  aws:elasticbeanstalk:container:python:staticfiles: # Elastic Beanstalk settings for serving static files
+    /static/: staticfile/ # Static files directory
+  aws:elasticbeanstalk:container:python:staticfiles: # Elastic Beanstalk settings for serving media files
+    /media/: media/ # Media files directory
+  aws:elasticbeanstalk:application:environment: # Elastic Beanstalk environment settings for the application
+    DJANGO_SETTINGS_MODULE: bytai.settings # Django settings module
+    PYTHONPATH: /opt/python/current/app/bytai:$PYTHONPATH # Python path
+    SECRET_KEY: 7/?OVwkBhqYPvcFLJ$>fBI"SNu>^hUQA.B`s[JL6Hs^";RA)"8 # Secret key for Django
+    LOG_LEVEL: INFO # Log level
+    DJANGO_LOG_FILE_PATH: /tmp/byt.log # Log file path
+container_commands: # Container commands for Elastic Beanstalk
+  01_makemigrations: # Command to run Django's makemigrations management command
     command: "source /var/app/venv/*/bin/activate && python3 manage.py makemigrations --noinput"
-    leader_only: true
-  02_migrate:
+    leader_only: true # Run this command only on the leader instance
+  02_migrate: # Command to run Django's migrate management command
     command: "source /var/app/venv/*/bin/activate && python3 manage.py migrate --noinput"
-    leader_only: true
-  03_superuser:
+    leader_only: true # Run this command only on the leader instance
+  03_superuser: # Command to run Django's createsuperuser management command
     command: "source /var/app/venv/*/bin/activate && python3 manage.py createsu"
-    leader_only: true
-  04_collectstatic:
+    leader_only: true # Run this command only on the leader instance
+  04_collectstatic: # Command to run Django's collectstatic management command
     command: "source /var/app/venv/*/bin/activate && python3 manage.py collectstatic --noinput"
-    leader_only: true
+    leader_only: true # Run this command only on the leader instance
