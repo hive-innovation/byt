@@ -86,7 +86,7 @@ main {
   
   h1 {
     /* SMART */
-    margin-top: 0;
+    margin: 0;
     padding-top: 0;
     font-family: 'Poppins';
     font-style: bold;
@@ -97,7 +97,7 @@ main {
   }
   
   p#tagline {
-    margin-top: 20px;
+    margin-top: -3rem;
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 600;

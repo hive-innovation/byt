@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{%load static%}
+	<title>{{ blog.title }}</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/blog.css' %}">
+</head>
+<body>
+	<header>
+		<img src="{% static 'images/logo.svg' %}" alt="Logo">
+		<h1>Blog</h1>
+		<nav>
+			<ul>
+				<li>
+					<a href="#">home</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+	<main>
+		<article>
+			<h2>{{ blog.title }}</h2>
+			<smal>{{ blog.pub_date }}</smal>
+			<p>{{ blog.body }}</p>
+		</article>
+	</main>
+	<footer>
+		<div class="copyright">
+			<a href="#" id="tos">Privacy Policy &amp; TOS</a>
+			&copy; selfbyt 2023
+		</div> 
+	</footer>
+</body>
+</html>

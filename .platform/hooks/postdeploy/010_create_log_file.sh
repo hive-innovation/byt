@@ -8,5 +8,5 @@ else
   touch $DJANGO_LOG_FILE_PATH
 fi
 
-# set log file owner (we are currently "root", but the app runs as "selfbyt")
-chown selfbyt:selfbyt $DJANGO_LOG_FILE_PATH
+# set log file owner (we are currently "root", but the app runs as "byt")
+chown byt:byt $DJANGO_LOG_FILE_PATH

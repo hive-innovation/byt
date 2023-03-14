@@ -15,17 +15,17 @@
     </header>
     
     <div class="container">
-      <form action="" method="post">
+      <form action="/signin" method="post">
         {%csrf_token%}
         <h1>Login</h1>
         <div id="error">
           {%for message in messages%}
-          <h5>
+          <h5 style="color: red">
             {{message}}
           </h5>
           {%endfor%} 
         </div>
-        <input type="text" id="username" name="username" placeholder="email">
+        <input type="text" id="email" name="email" placeholder="email">
         <input type="password" id="password" name="password" placeholder="Password:">
         
         <input type="submit" value="Log in">
@@ -38,14 +38,14 @@
           </ul>
         </div>
         <div class="links">
-          <a href="#">Forgot password?</a>
-          <a href="#">Don't have an account?</a>
+          <a href="/forgot-password">Forgot password?</a>
+          <a href="/signup">Don't have an account?</a>
         </div>
       </form>
     </div>
     <footer>
       <div class="copyright">
-        <a href="#" id="tos">Privacy Policy &amp; TOS</a>
+        <a href="/privacy-policy" id="tos">Privacy Policy &amp; TOS</a>
         &copy; selfbyt 2023
       </div> 
     </footer>

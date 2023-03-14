@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	{%load static%}
-    <title>My Blog</title>
+    %load static%
+    <title>Open Source Posts</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/blog.css' %}">
 </head>
 <body>
     <header>
         <img src="{% static 'images/logo.svg' %}" alt="Logo">
-        <h1>Blog</h1>
+        <h1>Open Source</h1>
         <nav>
             <ul>
                 <li>
@@ -22,19 +22,20 @@
     <main>
         <section>
             <h2>Latest Posts</h2>
-            {% for blog in blogs %}
+            {% for open_source_post in open_source_posts %}
             <article>
-                <h3>{{ blog.title }}</h3>
-                <small>{{ blog.pub_date }}</small>
-                <p>{{ blog.summary }}</p>
-                <a href="{% url 'blog_detail' slug=blog.slug %}">Continue Reading...</a>
+                <h3>{{ open_source_post.title }}</h3>
+                <small>{{ open_source_post.pub_date }}</small>
+                <p>{{ open_source_post.intro }}</p>
+                <a href="{% url 'open_source_detail' open_source_post.slug %}">Continue Reading...</a>
+                <a href="{{ open_source_post.link }}">GitHub Repo</a>
             </article>
             {% endfor %}
         </section>
     </main>
     <footer>
         <div class="copyright">
-            <a href="privacy-policy" id="tos">Privacy Policy &amp; TOS</a>
+            <a href="#" id="tos">Privacy Policy &amp; TOS</a>
             &copy; selfbyt 2023
         </div> 
     </footer>

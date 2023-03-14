@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	{%load static%}
-    <title>My Blog</title>
+    {%load static%}
+    <title>{{ open_source_post.title }}</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/blog.css' %}">
 </head>
 <body>
     <header>
         <img src="{% static 'images/logo.svg' %}" alt="Logo">
-        <h1>Blog</h1>
+        <h1>{{ open_source_post.title }}</h1>
         <nav>
             <ul>
                 <li>
@@ -21,22 +21,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <main>
         <section>
-            <h2>Latest Posts</h2>
-            {% for blog in blogs %}
             <article>
-                <h3>{{ blog.title }}</h3>
-                <small>{{ blog.pub_date }}</small>
-                <p>{{ blog.summary }}</p>
-                <a href="{% url 'blog_detail' slug=blog.slug %}">Continue Reading...</a>
+                <small>{{ open_source_post.pub_date }}</small>
+                <p>{{ open_source_post.body }}</p>
+                <a href="{{ open_source_post.link }}">GitHub Repo</a>
             </article>
-            {% endfor %}
         </section>
     </main>
     <footer>
-        <div class="copyright">
-            <a href="privacy-policy" id="tos">Privacy Policy &amp; TOS</a>
-            &copy; selfbyt 2023
-        </div> 
+        <div class="back-link">
+            <a href="{% url 'open_source' %}">Back to Open Source Posts</a>
+        </div>
     </footer>
 </body>
 </html>

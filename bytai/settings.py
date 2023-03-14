@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '7/?OVwkBhqYPvcFLJ$>fBI"SNu>^hUQA.B`s[
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["selfbyt.us-east-1.elasticbeanstalk.com","127.0.0.1"]
+ALLOWED_HOSTS = ["selfbyt.us-east-1.elasticbeanstalk.com", "127.0.0.1"]
 
 
 # Application definition
@@ -63,6 +63,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.sites.middleware.CurrentSiteMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -232,21 +233,23 @@ JWT_AUTH = {
     #allow refreshing token
     'JWT_ALLOW_REFRESH': True
 }
+SITE_ID = 1
+
 import os
 
-log_level = os.getenv('LOG_LEVEL', 'INFO')
-handlers = dict(file={'class': 'logging.handlers.TimedRotatingFileHandler',
-                      'filename': os.getenv('DJANGO_LOG_FILE_PATH'),
-                      'when': 'midnight',
-                      'interval': 1,
-                      'backupCount': 1,
-                      'encoding': 'utf-8'})
-loggers = dict(django=dict(level=log_level, handlers=['file']),
-               byt=dict(level=log_level, handlers=['file']))
-LOGGING = dict(version=1,
-               disable_existing_loggers=False,
-               handlers=handlers,
-               loggers=loggers)
+# log_level = os.getenv('LOG_LEVEL', 'INFO')
+# handlers = dict(file={'class': 'logging.handlers.TimedRotatingFileHandler',
+#                       'filename': os.getenv('DJANGO_LOG_FILE_PATH'),
+#                       'when': 'midnight',
+#                       'interval': 1,
+#                       'backupCount': 1,
+#                       'encoding': 'utf-8'})
+# loggers = dict(django=dict(level=log_level, handlers=['file']),
+#                byt=dict(level=log_level, handlers=['file']))
+# LOGGING = dict(version=1,
+#                disable_existing_loggers=False,
+#                handlers=handlers,
+#                loggers=loggers)
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587

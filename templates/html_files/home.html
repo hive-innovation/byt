@@ -13,16 +13,16 @@
       <img src="{% static 'images/logo.svg' %}"alt="Logo">
       <nav>
         <ul>
-          <li><a href="#">Research</a></li>
-          <li><a href="#">Blog</a></li>
-          <li><a href="#">Impact &amp; Safety</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Community</a></li>
+          <li><a href="opensource">Opensource</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/blog/impact-and-saftey">Impact &amp; Safety</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/community">Community</a></li>
         </ul>
       </nav>
       <div>
-        <button><a href="{% url 'signin' %}">Log In</a></button>
-        <button><a href="{% url 'signup' %}">Sign Up</a></button>
+        <button><a href="/signin">Log In</a></button>
+        <button><a href="/signup">Sign Up</a></button>
       </div>
     </header>
     
@@ -54,17 +54,17 @@
         <div class="footer-section">
           <h3 class="footer-section-title">Blog</h3>
           <ul style="margin-bottom: 2cm;">
-            <li><a href="#">Blog E</a></li>
-            <li><a href="#">Research</a></li>
+            <li><a href="blog">Blog </a></li>
+            <li><a href="opensource">Opensource</a></li>
             <li><a href="#">Impact & Safety</a></li>
           </ul>
         </div>
         <div class="footer-section">
           <h3 class="footer-section-title">Info</h3>
           <ul style="margin-bottom: 2cm;">
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Our Research</a></li>
-            <li><a href="#">Publications</a></li>
+            <li><a href="about">About Us</a></li>
+            <li><a href="research">Our Research</a></li>
+            <li><a href="">Publications</a></li>
             <li><a href="#">Careers</a></li>
           </ul>
         </div>
