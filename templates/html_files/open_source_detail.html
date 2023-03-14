@@ -23,7 +23,7 @@
         <section>
             <article>
                 <small>{{ open_source_post.pub_date }}</small>
-                <p>{{ open_source_post.body }}</p>
+                <p>{{ open_source_post.body|safe }}</p>
                 <a href="{{ open_source_post.link }}">GitHub Repo</a>
             </article>
         </section>

@@ -1,45 +1,74 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Community</title>
-	<link rel="stylesheet" href="community.css">
+    <meta charset="UTF-8">
+    <title>Community</title>
+    <link rel="stylesheet" href="community.css">
 </head>
 <body>
-	<header>
-		<img src="logo.svg" alt="Logo">
-		<h1>Community</h1>
-		<button id="create-post-button">Create Post</button>
-	</header>
-	
-	<main>
-		<section class="post">
-			<h2 class="post-title">My First Post</h2>
-			<div class="post-meta">
-				<span class="post-author">John Smith</span>
-				<span class="post-timestamp">February 24, 2023</span>
-			</div>
-			<div class="post-body">
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in enim justo. Integer sodales quam non ipsum eleifend bibendum. Curabitur vulputate ligula non sapien blandit, eget hendrerit elit rhoncus.</p>
-			</div>
-			<div class="post-actions">
-				<button class="like-button">Like</button>
-				<button class="comment-button">Comment</button>
-				<button class="downvote-button">Downvote</button>
-			</div>
-		</section>
-		
-		<!-- more posts... -->
-	</main>
+<header>
+    <img src="logo.svg" alt="Logo">
+    <h1>Community</h1>
+    <button id="create-post-button">Create Post</button>
+</header>
 
-	<footer>
-		<div class="copyright">
-			<a href="#" id="tos">Privacy Policy &amp; TOS</a>
-			&copy; selfbyt 2023
-		</div> 
-	</footer>
-	
+<main>
+    {% if posts %}
+    {% for post in posts %}
+    <section class="post">
+        <h2 class="post-title">{{ post.post }}</h2>
+        <div class="post-meta">
+            <span class="post-author">{{ post.author }}</span>
+            <span class="post-timestamp">{{ post.pub_date }}</span>
+        </div>
+        <div class="post-body">
+            <p>{{ post.body }}</p>
+        </div>
+        <div class="post-actions">
+            <button class="like-button" data-post-id="{{ post.id }}">Like ({{ post.like }})</button>
+            <button class="comment-button" data-post-id="{{ post.id }}">Comment ({{ post.comments.count }})</button>
+            <button class="downvote-button" data-post-id="{{ post.id }}">Downvote ({{ post.downvote }})</button>
+            <a href="{% url 'post_detail' post.id %}">View Post</a>
+        </div>
+    </section>
+    {% endfor %}
+    {% else %}
+    <p>No posts yet.</p>
+    {% endif %}
 
-	<script src="community.js"></script>
+    <form id="create-post-form" method="POST" action="{% url 'create_post' %}">
+        {% csrf_token %}
+        <div>
+            <label for="post-text">Post:</label>
+            <textarea name="post" id="post-text" required></textarea>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+
+    <div class="modal" id="create-comment-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="create-comment-form" method="POST" action="{% url 'create_comment' %}">
+                {% csrf_token %}
+                <div>
+                    <label for="comment-text">Comment:</label>
+                    <textarea name="comment" id="comment-text" required></textarea>
+                </div>
+                <input type="hidden" id="comment-post-id" name="post_id">
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="copyright">
+        <a href="#" id="tos">Privacy Policy &amp; TOS</a>
+        &copy; selfbyt 2023
+    </div>
+</footer>
+
+
+<script src="community.js"></script>
 </body>
 </html>

@@ -23,7 +23,7 @@
 		<article>
 			<h2>{{ blog.title }}</h2>
 			<smal>{{ blog.pub_date }}</smal>
-			<p>{{ blog.body }}</p>
+			<p>{{ blog.body | safe }}</p>
 		</article>
 	</main>
 	<footer>

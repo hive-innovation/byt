@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 import uuid
-
+from django.conf import settings
 class blog(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
@@ -32,17 +32,28 @@ class opensource(blog):
     def __str__(self):
         return self.link
 class community_post(models.Model):
-    post_id = models.UUIDField(primary_key=True, default = uuid.uuid4)
+    post_id = models.AutoField(primary_key=True)
     post = models.TextField()
     pub_date = models.DateTimeField(auto_now_add=True)
-    author = models.CharField(max_length= 200)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     like = models.IntegerField(default=0)
     Downvote = models.IntegerField(default=0)
     def __str__(self):
-        self.author
+        self.post_id
     class Meta:
         ordering = ['-pub_date']
 
-class comment(community_post):
-    post_id = models.ForeignKey(on_delete=CASCADE)
+class Comment(models.Model):
+    comment_id = models.AutoField(primary_key=True)
+    parent_post = models.ForeignKey(community_post, on_delete=models.CASCADE, related_name='comments')
     comment = models.TextField()
+    pub_date = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    like = models.IntegerField(default=0)
+    downvote = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.author
+    
+    class Meta:
+        ordering = ['-pub_date']

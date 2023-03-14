@@ -21,7 +21,7 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str
 from homepage.tokens import account_activation_token
-from .models import blog, opensource
+from .models import blog, opensource, community_post, Comment
 from itertools import chain
 from django.contrib.auth.decorators import login_required
 
@@ -39,7 +39,7 @@ def blog_view(request):
     return redirect('blog')
 
 def blog_detail(request, slug):
-    blog = get_object_or_404(Blog, slug=slug)
+    blog = get_object_or_404(blog, slug=slug)
     context = {
         'blog': blog
     }
@@ -59,7 +59,66 @@ def open_source_detail(request, slug):
         'open_source_post': open_source_post
     }
     return render(request, 'html_files/open_source_detail.html', context)
+def post_list(request):
+    posts = community_post.objects.all()
+    context = {'posts': posts}
+    return render(request, 'html_files/community.html', context)
 
+@login_required
+def create_post(request):
+    if request.method == 'POST':
+        post_content = request.POST.get('post_content')
+        new_post = community_post(post=post_content, author=request.Profile.username)
+        new_post.save()
+        return redirect('community')
+    else:
+        return render(request, 'html_files/create_post.html')
+
+@login_required
+def create_comment(request, post_id):
+    post = community_post.objects.get(pk=post_id)
+    if request.method == 'POST':
+        comment_content = request.POST.get('comment_content')
+        new_comment = Comment(comment=comment_content, author=request.Profile.username, parent_post=post)
+        new_comment.save()
+        return redirect('community', post_id=post_id)
+    else:
+        context = {'post': post}
+        return render(request, 'html_files/reate_comment.html', context)
+
+@login_required
+def like_post(request, post_id):
+    post = community_post.objects.get(pk=post_id)
+    post.like += 1
+    post.save()
+    return redirect('post_detail', post_id=post_id)
+
+@login_required
+def downvote_post(request, post_id):
+    post = community_post.objects.get(pk=post_id)
+    post.Downvote += 1
+    post.save()
+    return redirect('post_detail', post_id=post_id)
+
+@login_required
+def like_comment(request, comment_id):
+    comment = Comment.objects.get(pk=comment_id)
+    comment.like += 1
+    comment.save()
+    return redirect('post_detail', post_id=comment.parent_post.pk)
+
+@login_required
+def downvote_comment(request, comment_id):
+    comment = Comment.objects.get(pk=comment_id)
+    comment.downvote += 1
+    comment.save()
+    return redirect('post_detail', post_id=comment.parent_post.pk)
+
+def post_detail(request, post_id):
+    post = community_post.objects.get(pk=post_id)
+    comments = Comment.objects.filter(parent_post=post)
+    context = {'post': post, 'comments': comments}
+    return render(request, 'post_detail.html', context)
 def about(request):
     return render(request, 'html_files/about.html')
 def signup(request):
